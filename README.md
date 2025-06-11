@@ -101,7 +101,7 @@ Este projeto integra boas práticas modernas de desenvolvimento web full-stack, 
 Clone o repositório, configure as variáveis de ambiente e aproveite!
 
 ```bash
-git clone https://github.com/felkj/CRUD-De-Veiculos.git
+git clone https://github.com/felkj/crud-veiculos.git
 ```
 
 ---
