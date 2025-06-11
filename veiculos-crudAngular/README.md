@@ -1,59 +1,53 @@
-# VeiculosCrudAngular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.5.
+# Frontend: Sistema de Gerenciamento de Veículos
 
-## Development server
+## A Experiência do Usuário (Angular 19 Standalone)
 
-To start a local development server, run:
+Este README.md é dedicado ao frontend do seu sistema de gerenciamento de veículos. Ele é a parte visível da aplicação, desenvolvida com a versão mais recente do Angular (Angular 19), utilizando o conceito moderno de Standalone Components. Isso torna o código mais organizado e fácil de manter. Para deixar tudo bonito e funcional, usamos Bootstrap para estilização e Bootstrap Icons para os ícones.
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Estrutura do Projeto e Dependências
 
-## Code scaffolding
+O projeto Angular está configurado para ser totalmente standalone. As principais "ferramentas" que ele usa estão listadas no arquivo `package.json`:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- As bibliotecas centrais do Angular (`@angular/core`, `@angular/common`, `@angular/router`, `@angular/forms`, `@angular/platform-browser`).
+- `bootstrap` e `bootstrap-icons`: Para dar o visual elegante e os ícones à sua aplicação.
+- `jwt-decode`: Uma pequena biblioteca que nos ajuda a "ler" as informações dentro do JWT no lado do frontend, como a data de expiração e os papéis.
 
-```bash
-ng generate component component-name
-```
+Você pode verificar essas dependências no seu `package.json`.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## Configuração Geral do Angular
 
-## Building
+- `main.ts`: Este é o ponto de partida da sua aplicação Angular. Ele inicializa tudo, "acordando" o componente principal (`AppComponent`) e carregando as configurações globais do `app.config.ts`.
+- `app.config.ts`: É o local onde configuramos os "serviços" que estarão disponíveis para toda a sua aplicação. Aqui, habilitamos o `HttpClient` (para fazer requisições HTTP), registramos o `AuthInterceptor` (que vai adicionar o token JWT nas requisições), e configuramos o `LOCALE_ID` para `pt-BR`.
+- `app.routes.ts`: Define todas as rotas da aplicação. Usamos `AuthGuard` para proteger as rotas conforme a autenticação e o papel do usuário.
+- `angular.json`: Este arquivo garante que Bootstrap (CSS e JavaScript) e Bootstrap Icons sejam carregados globalmente em seu projeto.
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## Autenticação e Autorização (Frontend)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- **AuthService**: Lida com login, logout, e fornece métodos como `isAuthenticated()` e `hasRole()`. Implementado em `auth.service.ts`.
+- **AuthInterceptor**: Intercepta todas as requisições HTTP e injeta o token JWT se disponível. Implementado em `auth.interceptor.ts`.
+- **AuthGuard**: Protege rotas de acordo com autenticação e papel. Implementado em `auth.guard.ts`.
 
-## Running unit tests
+---
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Componentes CRUD de Veículos
 
-```bash
-ng test
-```
+- **LoginComponent**: Apresenta o formulário de login e exibe mensagens em caso de erro.
+- **LayoutComponent**: Contém o `HeaderComponent`, `<router-outlet>` e `FooterComponent`.
+- **HeaderComponent**: Mostra links com base no papel do usuário e o botão de logout.
+- **FooterComponent**: Contém informações adicionais, como contatos.
+- **CadastroComponent**: Permite adicionar novos veículos. Visível apenas para ADMIN.
+- **ListarComponent**: Lista os veículos e permite editar/excluir (ADMIN). Utiliza diálogo de confirmação para exclusão.
+- **EditarComponent**: Permite editar os detalhes de um veículo com base no ID da URL. Apenas para ADMIN.
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## Estilização (CSS)
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+A beleza da aplicação vem do uso do Bootstrap e de CSS customizado por componente (`*.component.css`). O layout é responsivo, e elementos como imagens e modais foram estilizados com atenção ao detalhe para boa experiência em todas as telas.
